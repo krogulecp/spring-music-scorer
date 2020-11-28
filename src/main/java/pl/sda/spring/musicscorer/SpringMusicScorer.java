@@ -1,4 +1,4 @@
-package pl.sda.spring.demo;
+package pl.sda.spring.musicscorer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package pl.sda.spring.demo;
+package pl.sda.spring.musicscorer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
