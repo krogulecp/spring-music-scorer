@@ -1,6 +1,7 @@
 package pl.sda.spring.musicscorer.application;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +29,13 @@ public class AlbumsRestController {
         return null;
     }
 
-    @PutMapping("/albums")
-    public ResponseEntity<Void> editAlbum(@RequestBody AddAlbumRequest addAlbumRequest){
+    @PutMapping("/albums/{id}")
+    public ResponseEntity<Void> editAlbum(@RequestBody AddAlbumRequest addAlbumRequest, @PathVariable String id){
+        return null;
+    }
+
+    @DeleteMapping("/albums/{id}")
+    public ResponseEntity<Void> removeAlbum(@PathVariable String id){
         return null;
     }
 }
