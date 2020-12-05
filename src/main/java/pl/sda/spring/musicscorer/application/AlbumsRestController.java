@@ -9,9 +9,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.sda.spring.musicscorer.domain.Album;
 
 @RestController
 public class AlbumsRestController {
+
+    private final AlbumService albumService;
+
+    public AlbumsRestController(AlbumService albumService) {
+        this.albumService = albumService;
+    }
 
     @GetMapping("/albums")
     public ResponseEntity<AlbumsResponse> getAlbums(@RequestParam(required = false) String title,
@@ -21,7 +28,8 @@ public class AlbumsRestController {
 
     @GetMapping("/albums/{id}")
     public ResponseEntity<SingleAlbumResponse> getAlbum(@PathVariable String id){
-        return null;
+        final Album album = albumService.getAlbum(id);
+        return ResponseEntity.ok(SingleAlbumResponse.fromAlbum(album));
     }
 
     @PostMapping("/albums")

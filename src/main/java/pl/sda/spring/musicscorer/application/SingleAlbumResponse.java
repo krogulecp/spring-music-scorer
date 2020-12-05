@@ -1,6 +1,7 @@
 package pl.sda.spring.musicscorer.application;
 
 import lombok.Value;
+import pl.sda.spring.musicscorer.domain.Album;
 
 import java.math.BigDecimal;
 
@@ -9,4 +10,8 @@ public class SingleAlbumResponse {
     String artist;
     String title;
     BigDecimal score;
+
+    public static SingleAlbumResponse fromAlbum(Album album) {
+        return null;
+    }
 }
