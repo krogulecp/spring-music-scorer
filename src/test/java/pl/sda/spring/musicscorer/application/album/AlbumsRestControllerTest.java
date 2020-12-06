@@ -75,11 +75,16 @@ class AlbumsRestControllerTest {
     @Test
     void should_add_album(){
         //given
-
+        assert (albumRepository.findAll().size() == 0);
 
         //when
-
-
+        final ResponseEntity<Void> response = testRestTemplate.postForEntity("/albums",
+                new AddAlbumRequest("pearl jam",
+                    "ten",
+                    "desc",
+                    LocalDate.of(1990, 2, 10)), Void.class);
         //then
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        Assertions.assertThat(albumRepository.findAll()).hasSize(1);
     }
 }
