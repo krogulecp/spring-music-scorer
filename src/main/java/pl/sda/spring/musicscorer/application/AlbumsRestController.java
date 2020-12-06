@@ -28,8 +28,9 @@ public class AlbumsRestController {
 
     @GetMapping("/albums/{id}")
     public ResponseEntity<SingleAlbumResponse> getAlbum(@PathVariable String id){
-        final Album album = albumService.getAlbum(id);
-        return ResponseEntity.ok(SingleAlbumResponse.fromAlbum(album));
+        return albumService.getAlbum(id)
+                .map(album -> ResponseEntity.ok(new SingleAlbumResponse(album.getArtist(), album.getTitle(), album.getScore())))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/albums")

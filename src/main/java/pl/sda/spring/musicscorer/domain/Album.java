@@ -1,5 +1,12 @@
 package pl.sda.spring.musicscorer.domain;
 
-public class Album {
+import lombok.Value;
 
+import java.math.BigDecimal;
+
+@Value
+public class Album {
+    String artist;
+    String title;
+    BigDecimal score;
 }
