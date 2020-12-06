@@ -37,4 +37,13 @@ class AlbumsRestControllerTest {
         Assertions.assertThat(albumResponse.getBody().getArtist()).isEqualTo("pearl jam");
         Assertions.assertThat(albumResponse.getBody().getTitle()).isEqualTo("ten");
     }
+
+    @Test
+    void should_get_albums_by_title_and_artist(){
+        //given
+
+        //when
+
+        //then
+    }
 }
