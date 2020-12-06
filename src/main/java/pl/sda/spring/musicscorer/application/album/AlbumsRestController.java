@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.sda.spring.musicscorer.domain.Album;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class AlbumsRestController {
@@ -22,7 +26,12 @@ public class AlbumsRestController {
     @GetMapping("/albums")
     public ResponseEntity<AlbumsResponse> getAlbums(@RequestParam(required = false) String title,
                                                     @RequestParam(required = false) String artist){
-        return null;
+        List<Album> albums = albumService.getAlbums(title, artist);
+        final List<SingleAlbumResponse> singleAlbumResponses = albums.stream()
+                .map(album -> new SingleAlbumResponse(album.getArtist(), album.getTitle(), album.getScore()))
+                .collect(Collectors.toList());
+        final AlbumsResponse albumsResponse = new AlbumsResponse(singleAlbumResponses);
+        return ResponseEntity.ok(albumsResponse);
     }
 
     @GetMapping("/albums/{id}")
