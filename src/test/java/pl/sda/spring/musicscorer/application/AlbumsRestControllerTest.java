@@ -7,9 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import pl.sda.spring.musicscorer.application.album.AlbumEntity;
+import pl.sda.spring.musicscorer.application.album.AlbumRepository;
+import pl.sda.spring.musicscorer.application.album.SingleAlbumResponse;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

@@ -1,4 +1,4 @@
-package pl.sda.spring.musicscorer.application;
+package pl.sda.spring.musicscorer.application.score;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
