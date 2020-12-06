@@ -28,7 +28,7 @@ public class AlbumService {
     }
 
     public List<Album> getAlbums(String title, String artist) {
-        return albumRepository.findByTitleAndArtist(title, artist).stream()
+        return albumRepository.findByTitleAndArtistCustom(title, artist).stream()
                 .map(albumEntity -> new Album(albumEntity.getArtist(), albumEntity.getTitle(), scoreService.getAlbumScore(albumEntity.getId().toString())))
                 .collect(Collectors.toList());
     }

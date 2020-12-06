@@ -1,7 +1,11 @@
 package pl.sda.spring.musicscorer.application.album;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -21,6 +25,11 @@ class AlbumsRestControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+    @BeforeEach
+    void clearRepo(){
+        albumRepository.deleteAll();
+    }
+
     @Test
     void should_get_album(){
         //given
@@ -39,8 +48,13 @@ class AlbumsRestControllerTest {
         Assertions.assertThat(albumResponse.getBody().getTitle()).isEqualTo("ten");
     }
 
-    @Test
-    void should_get_albums_by_title_and_artist(){
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "/albums?title=awake&artist=godsmack",
+            "/albums?title=awake",
+            "/albums?artist=godsmack"
+    })
+    void should_get_albums_by_title_and_artist(String url){
         //given
         final AlbumEntity album1
                 = new AlbumEntity(null, "ten", "pearl jam", "some desc", LocalDate.of(1990, 2, 10));
@@ -50,7 +64,7 @@ class AlbumsRestControllerTest {
         albumRepository.saveAll(List.of(album1, album2));
 
         //when
-        final ResponseEntity<AlbumsResponse> albumsResponse = testRestTemplate.getForEntity("/albums?title=awake&artist=godsmack", AlbumsResponse.class);
+        final ResponseEntity<AlbumsResponse> albumsResponse = testRestTemplate.getForEntity(url, AlbumsResponse.class);
 
         //then
         Assertions.assertThat(albumsResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
