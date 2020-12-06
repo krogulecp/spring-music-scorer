@@ -71,4 +71,15 @@ class AlbumsRestControllerTest {
         Assertions.assertThat(albumsResponse.getBody()).isNotNull();
         Assertions.assertThat(albumsResponse.getBody().getAlbums()).hasSize(1);
     }
+
+    @Test
+    void should_add_album(){
+        //given
+
+
+        //when
+
+
+        //then
+    }
 }
