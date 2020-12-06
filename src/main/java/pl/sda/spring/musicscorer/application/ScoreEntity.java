@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.UUID;
 
 @Data
@@ -14,7 +15,9 @@ public class ScoreEntity {
     @Id
     @GeneratedValue
     private UUID id;
-    String scorer;
-    int score;
-    String albumId;
+    private String scorer;
+    private int score;
+    
+    @ManyToOne(targetEntity = AlbumEntity.class)
+    private AlbumEntity album;
 }
