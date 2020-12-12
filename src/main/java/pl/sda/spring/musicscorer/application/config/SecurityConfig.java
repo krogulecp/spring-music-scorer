@@ -3,6 +3,7 @@ package pl.sda.spring.musicscorer.application.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,6 +21,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("user1")
                 .password(passwordEncoder().encode("user1Pass"))
                 .authorities("ROLE_USER");
+        auth.inMemoryAuthentication()
+                .withUser("admin")
+                .password(passwordEncoder().encode("adminPass"))
+                .authorities("ROLE_ADMIN");
     }
 
     @Override
@@ -27,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/actuator/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/albums").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
